@@ -4,7 +4,7 @@ from pathlib import Path
 import utils.config as conf
 
 RAW_DIR = Path(conf.DATASET_PATH) / "alessiocorrado99/animals10/versions/2/raw-img"
-OUTPUT_DIR = Path(conf.DATASET_PATH) / "original"
+OUTPUT_DIR = Path(conf.DATASET_PATH)
 TRAIN_RATIO = conf.TRAIN_RATIO
 
 translate = {
