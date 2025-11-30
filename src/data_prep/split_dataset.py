@@ -20,6 +20,9 @@ translate = {
 }
 
 def split_dataset():
+    """
+    Splits the dataset into "train" and "test" sets.
+    """
     print("Splitting the dataset...")
 
     categories = [f.name for f in RAW_DIR.iterdir() if f.is_dir()]

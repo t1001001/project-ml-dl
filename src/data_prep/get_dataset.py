@@ -5,6 +5,9 @@ from utils.config import ROOT
 os.environ["KAGGLEHUB_CACHE"] = str(ROOT)
 
 def get_dataset():
+    """"
+    Downloads the dataset from Kaggle.
+    """
     return kagglehub.dataset_download("alessiocorrado99/animals10")
 
 if __name__ == "__main__":

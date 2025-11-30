@@ -18,20 +18,25 @@ This project uses the [Animals-10](https://www.kaggle.com/datasets/alessiocorrad
 ## Package structure
 ```
 Project-ML-DL/
-│── src/                   # Source code
-│   │   ├── data_prep/
+│── src/                            # Source code
+│   │   ├── data_prep/              # Data preparation and augmentation
 │   │   │   ├-- __init__.py
-│   │   ├── evaluation/
+│   │   │   ├-- get_dataset.py
+│   │   │   ├-- split_dataset.py
+│   │   ├── evaluation/             # Model evaluation
 │   │   │   ├-- __init__.py
-│   │   ├── models/
+│   │   ├── models/                 # Models
 │   │   │   ├-- __init__.py
-│   │   ├── utils/
+│   │   ├── utils/                  # Utility methods
 │   │   │   ├-- __init__.py
+│   │   │   ├-- cleanup.py
+│   │   │   ├-- config.py
+│   │   │   ├-- get_root_path.py
 │   │   ├-- main.py
 │   │   ├-- __init__.py
-│── README.md              # Documentation
-│── requirements.txt       # Dependencies
-│── .gitignore             # Ignore files
+│── README.md                       # Documentation
+│── requirements.txt                # Dependencies
+│── .gitignore                      # Ignore files
 │── LICENSE
 ```
 
