@@ -3,7 +3,7 @@ from typing import Final
 
 ROOT: Final = get_root_path()
 
-DATASET_PATH: Final = f"{ROOT}/dataset"
+DATASET_PATH: Final = f"{ROOT}/datasets"
 
-IMAGE_TRAIN_PATH: Final = f"{ROOT}/dataset/train"
-IMAGE_TEST_PATH: Final = f"{ROOT}/dataset/test"
+TRAIN_RATIO: Final = 0.8
+TEST_RATIO: Final = 0.2
