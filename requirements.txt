@@ -1,4 +1,5 @@
 opencv-python
+torchvision
 tensorflow[and-cuda]
 numpy
 matplotlib
