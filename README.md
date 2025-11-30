@@ -13,7 +13,7 @@ Tobias Nguyen
 
 ## Used dataset
 
-This project uses the [Animals-10](https://www.kaggle.com/datasets/alessiocorrado99/animals10) from [Kaggle](https://www.kaggle.com/).
+This project uses the [Animals-10](https://www.kaggle.com/datasets/alessiocorrado99/animals10) dataset from [Kaggle](https://www.kaggle.com/).
 
 ## Package structure
 ```
