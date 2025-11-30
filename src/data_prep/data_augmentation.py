@@ -62,8 +62,8 @@ def get_file_extension(image_path):
     return Path(image_path).suffix
 
 def count_images(folder):
-    """Counts the number of images in a folder, including both .png and .PNG files."""
-    return len(list(Path(folder).rglob("*.png"))) + len(list(Path(folder).rglob("*.PNG")))
+    """Counts the number of images in a folder."""
+    return len(list(Path(folder).rglob("*"))) + len(list(Path(folder).rglob("*")))
 
 def log_dataset_size(folder, stage):
     """Logs the number of images before and after augmentation."""
