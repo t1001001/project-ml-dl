@@ -1,0 +1,7 @@
+opencv-python
+tensorflow[and-cuda]
+numpy
+matplotlib
+scikit-learn
+seaborn
+kagglehub
