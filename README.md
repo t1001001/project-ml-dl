@@ -19,6 +19,14 @@ This project uses the [Animals-10](https://www.kaggle.com/datasets/alessiocorrad
 ```
 Project-ML-DL/
 │── src/                   # Source code
+│   │   ├── data_prep/
+│   │   │   ├-- __init__.py
+│   │   ├── evaluation/
+│   │   │   ├-- __init__.py
+│   │   ├── models/
+│   │   │   ├-- __init__.py
+│   │   ├── utils/
+│   │   │   ├-- __init__.py
 │   │   ├-- main.py
 │   │   ├-- __init__.py
 │── README.md              # Documentation
