@@ -87,3 +87,11 @@ uv pip install -r requirements.txt
 ```bash
 uv pip install -e .
 ```
+
+## Project setup
+
+```bash
+# After finishing the installation process, run the following command
+project
+```
+After running this command, the dataset will be downloaded and splitted.

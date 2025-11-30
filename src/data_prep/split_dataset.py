@@ -4,7 +4,8 @@ from pathlib import Path
 import utils.config as conf
 
 RAW_DIR = Path(conf.DATASET_PATH) / "alessiocorrado99/animals10/versions/2/raw-img"
-OUTPUT_DIR = Path(conf.DATASET_PATH) 
+OUTPUT_DIR = Path(conf.DATASET_PATH) / "original"
+TRAIN_RATIO = conf.TRAIN_RATIO
 
 translate = {
     "cane": "dog",
@@ -41,7 +42,7 @@ def split_dataset():
         print(f"{category}: found {len(image_files)} images")
         random.shuffle(image_files)
 
-        split_idx = int(len(image_files) * conf.TRAIN_RATIO)
+        split_idx = int(len(image_files) * TRAIN_RATIO)
         train_files = image_files[:split_idx]
         test_files = image_files[split_idx:]
 
