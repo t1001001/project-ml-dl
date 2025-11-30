@@ -5,3 +5,6 @@ matplotlib
 scikit-learn
 seaborn
 kagglehub
+tqdm
+Pillow
+setuptools
