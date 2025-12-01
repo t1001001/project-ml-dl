@@ -7,3 +7,5 @@ project_ml_dl.egg-info
 datasets
 
 *.h5
+
+*.png
