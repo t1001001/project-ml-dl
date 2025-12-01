@@ -35,7 +35,7 @@ def evaluate_mobilenetv2(image_size=(224, 224), batch_size=64):
     plt.ylabel("True")
     plt.title("Confusion Matrix - AlexNet")
     plt.tight_layout()
-    plt.savefig(conf.ROOT+"/src/evaluation/mobilenetv2_evaluation.png")
+    plt.savefig(str(conf.ROOT)+"/src/evaluation/mobilenetv2_evaluation.png")
     plt.show()
     print("\nClassification Report:")
     print(classification_report(true_labels, predicted_classes, target_names=class_names))
