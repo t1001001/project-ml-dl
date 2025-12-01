@@ -28,7 +28,7 @@ def build_alexnet(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
+def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=1):
     """
     Loads dataset, trains AlexNet, and saves the model.
     """
@@ -42,12 +42,12 @@ def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save
         image_size=image_size,
         batch_size=batch_size
     )
+    num_classes = len(train_ds.class_names)
+    print("Detected classes:", train_ds.class_names)
     train_ds = train_ds.map(lambda x, y: (x / 255.0, y))
     val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
     train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
-    num_classes = len(train_ds.class_names)
-    print("Detected classes:", train_ds.class_names)
     model = build_alexnet(
         input_shape=(image_size[0], image_size[1], 3),
         num_classes=num_classes
