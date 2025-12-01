@@ -1,4 +1,5 @@
 from tensorflow.keras.models import load_model
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -23,6 +24,8 @@ def evaluate_mobilenetv2(image_size=(224, 224), batch_size=64):
         label_mode='int'
     )
     class_names = test_ds.class_names
+    test_ds = test_ds.map(lambda x, y: (preprocess_input(x), y))
+    test_ds = test_ds.prefetch(tf.data.AUTOTUNE)
     predictions = model.predict(test_ds)
     predicted_classes = np.argmax(predictions, axis=1)
     true_labels = np.concatenate([y for x, y in test_ds], axis=0)
@@ -33,7 +36,7 @@ def evaluate_mobilenetv2(image_size=(224, 224), batch_size=64):
                 yticklabels=class_names)
     plt.xlabel("Predicted")
     plt.ylabel("True")
-    plt.title("Confusion Matrix - AlexNet")
+    plt.title("Confusion Matrix - MobileNetV2")
     plt.tight_layout()
     plt.savefig(str(conf.ROOT)+"/src/evaluation/mobilenetv2_evaluation.png")
     plt.show()

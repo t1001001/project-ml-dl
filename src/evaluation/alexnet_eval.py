@@ -9,7 +9,7 @@ import utils.config as conf
 import os
 import numpy as np
 
-def evaluate_alexnet(image_size=(224, 224), batch_size=64):
+def evaluate_alexnet(image_size=(227, 227), batch_size=64):
     """
     Evaluates the AlexNet model.
     """
@@ -23,6 +23,8 @@ def evaluate_alexnet(image_size=(224, 224), batch_size=64):
         label_mode='int'
     )
     class_names = test_ds.class_names
+    test_ds = test_ds.map(lambda x, y: (x / 255.0, y))
+    test_ds = test_ds.prefetch(tf.data.AUTOTUNE)
     predictions = model.predict(test_ds)
     predicted_classes = np.argmax(predictions, axis=1)
     true_labels = np.concatenate([y for x, y in test_ds], axis=0)
