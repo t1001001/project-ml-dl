@@ -49,7 +49,7 @@ def train_resnet50(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, sav
         epochs=epochs,
         validation_data=val_ds
     )
-    model.save(save_path+"resnet50.h5")
+    model.save(save_path+"/resnet50.h5")
     print(f"[INFO] Model saved to {save_path}")
     return model, history
 
