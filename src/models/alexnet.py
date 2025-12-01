@@ -53,7 +53,7 @@ def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save
         epochs=epochs,
         validation_data=val_ds
     )
-    model.save(save_path)
+    model.save(save_path+"alexnet.h5")
     print(f"[INFO] Model saved to {save_path}")
     return model, history
 
