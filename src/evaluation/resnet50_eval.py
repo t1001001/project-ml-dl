@@ -13,7 +13,7 @@ def evaluate_resnet50(image_size=(224, 224), batch_size=64):
     """
     Evaluates the ResNet50 model.
     """
-    model = load_model(conf.SAVED_MODELS_PATH+"/resnet.h5")
+    model = load_model(conf.SAVED_MODELS_PATH+"/resnet50.h5")
     test_dir = conf.DATASET_TEST
     test_ds = tf.keras.preprocessing.image_dataset_from_directory(
         test_dir,
