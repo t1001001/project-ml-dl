@@ -27,6 +27,7 @@ Project-ML-DL/
 │   │   │   ├-- __init__.py
 │   │   ├── models/                 # Models
 │   │   │   ├-- __init__.py
+│   │   │   ├-- alexnet.py
 │   │   ├── utils/                  # Utility methods
 │   │   │   ├-- __init__.py
 │   │   │   ├-- cleanup.py
