@@ -34,6 +34,10 @@ def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, 
         image_size=image_size,
         batch_size=batch_size
     )
+    train_ds = train_ds.map(lambda x, y: (x / 255.0, y))
+    val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
+    train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
+    val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     num_classes = len(train_ds.class_names)
     print("Detected classes:", train_ds.class_names)
     model = build_mobilenetv2(
