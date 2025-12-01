@@ -40,6 +40,8 @@ DATASET_BACKUP_SHEEP: Final = f"{DATASET_PATH}/backup/sheep"
 DATASET_BACKUP_SPIDER: Final = f"{DATASET_PATH}/backup/spider"
 DATASET_BACKUP_SQUIRREL: Final = f"{DATASET_PATH}/backup/squirrel"
 
+SAVED_MODELS_PATH: Final = f"{ROOT}/src/models/saved_models"
+
 TRAIN_RATIO: Final = 0.8
 TEST_RATIO: Final = 0.2
 
