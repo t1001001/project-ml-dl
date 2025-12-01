@@ -25,29 +25,13 @@ TRAIN_FOLDERS = [
 ]
 
 def main():
-    print("Running the project!")
+    print("Getting the dataset!")
     get_dataset()
-    print("Finished getting the dataset!")
     split_dataset()
-    print("Finished splitting the dataset!")
     for folder in TRAIN_FOLDERS:
         process_images(folder, apply_augmentation=True)
-    print("Finished augmenting the dataset!")
     cleanup()
-    print("Cleaned up old ressources!")
-    train_alexnet()
-    print("Finished training AlexNet!")
-    train_mobilenetv2()
-    print("Finished training MobileNetV2!")
-    train_resnet50()
-    print("Finished training ResNet50")
-    evaluate_alexnet()
-    print("Finished evaluating AlexNet!")
-    evaluate_mobilenetv2()
-    print("Finished evaluating MobileNetV2!")
-    evaluate_resnet50()
-    print("Finished evaluating ResNet50!")
-    print("Finished running the project!")
+    print("Finished getting the dataset!")
 
 if __name__ == "__main__":
     main()

@@ -91,10 +91,39 @@ uv pip install -r requirements.txt
 uv pip install -e .
 ```
 
-## Project setup
+## Usage
 
+### 1. Download the dataset
 ```bash
-# After finishing the installation process, run the following command
-project
+dataset
 ```
-After running this command, the dataset will be downloaded and splitted.
+
+### 3. Building and training the models
+```bash
+# Builds and train an AlexNet model and saves it at src/models/saved_models/alexnet.h5
+cd src/models
+python alexnet.py
+
+# Builds and train a MobileNetV2 model and saves it at src/models/saved_models/mobilenetv2.h5
+cd src/models
+python mobilenetv2.py
+
+# Builds and train a ResNet50 model and saves it at src/models/saved_models/resnet50.h5
+cd src/models
+python resnet50.py
+```
+
+### 3. Evaluate the models
+```bash
+# Test the AlexNet model on the test data
+cd src/evaluation
+python alexnet_eval.py
+
+# Test the MobileNetV2 model on the test data
+cd src/evaluation
+python mobilenetv2_eval.py
+
+# Test the ResNet50 model on the test data
+cd src/evaluation
+python resnet50_eval.py
+```
