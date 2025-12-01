@@ -5,6 +5,7 @@ from data_prep.get_dataset import get_dataset
 from data_prep.split_dataset import split_dataset
 from data_prep.data_augmentation import process_images
 from models.alexnet import train_alexnet
+from models.mobilenetv2 import train_mobilenetv2
 from models.resnet50 import train_resnet50
 
 TRAIN_FOLDERS = [
@@ -33,9 +34,11 @@ def main():
     cleanup()
     print("Cleaned up old ressources - will train an AlexNet model now!")
     train_alexnet()
-    print("Finished training AlexNet - will train ResNet50 now!")
+    print("Finished training AlexNet - will train MobileNetV2 now!")
+    train_mobilenetv2()
+    print("Finished training MobileNetV2 - will train ResNet50 now!")
     train_resnet50()
-    print("Finished training ResNet50!")
+    print("Finished training ResNet50 - will finish running the project!")
     print("Finished running the project!")
 
 if __name__ == "__main__":

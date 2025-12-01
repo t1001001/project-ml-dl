@@ -28,6 +28,7 @@ Project-ML-DL/
 │   │   ├── models/                 # Models
 │   │   │   ├-- __init__.py
 │   │   │   ├-- alexnet.py
+│   │   │   ├-- mobilenetv2.py
 │   │   │   ├-- resnet50.py
 │   │   ├── utils/                  # Utility methods
 │   │   │   ├-- __init__.py
