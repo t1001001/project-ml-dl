@@ -7,6 +7,9 @@ from data_prep.data_augmentation import process_images
 from models.alexnet import train_alexnet
 from models.mobilenetv2 import train_mobilenetv2
 from models.resnet50 import train_resnet50
+from evaluation.alexnet_eval import evaluate_alexnet
+from evaluation.mobilenetv2_eval import evaluate_mobilenetv2
+from evaluation.resnet50_eval import evaluate_resnet50
 
 TRAIN_FOLDERS = [
     conf.DATASET_TRAIN_BUTTERFLY_PATH,
@@ -23,22 +26,27 @@ TRAIN_FOLDERS = [
 
 def main():
     print("Running the project!")
-    print("Getting the dataset now!")
     get_dataset()
-    print("Got the dataset - will spilit it now!")
+    print("Finished getting the dataset!")
     split_dataset()
-    print("Splitted the dataset - will augment it now!")
+    print("Finished splitting the dataset!")
     for folder in TRAIN_FOLDERS:
         process_images(folder, apply_augmentation=True)
-    print("Augmented the dataset - will clean up old ressources!")
+    print("Finished augmenting the dataset!")
     cleanup()
-    print("Cleaned up old ressources - will train an AlexNet model now!")
+    print("Cleaned up old ressources!")
     train_alexnet()
-    print("Finished training AlexNet - will train MobileNetV2 now!")
+    print("Finished training AlexNet!")
     train_mobilenetv2()
-    print("Finished training MobileNetV2 - will train ResNet50 now!")
+    print("Finished training MobileNetV2!")
     train_resnet50()
-    print("Finished training ResNet50 - will finish running the project!")
+    print("Finished training ResNet50")
+    evaluate_alexnet()
+    print("Finished evaluating AlexNet!")
+    evaluate_mobilenetv2()
+    print("Finished evaluating MobileNetV2!")
+    evaluate_resnet50()
+    print("Finished evaluating ResNet50!")
     print("Finished running the project!")
 
 if __name__ == "__main__":
