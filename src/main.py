@@ -5,6 +5,7 @@ from data_prep.get_dataset import get_dataset
 from data_prep.split_dataset import split_dataset
 from data_prep.data_augmentation import process_images
 from models.alexnet import train_alexnet
+from models.resnet50 import train_resnet50
 
 TRAIN_FOLDERS = [
     conf.DATASET_TRAIN_BUTTERFLY_PATH,
@@ -32,6 +33,9 @@ def main():
     cleanup()
     print("Cleaned up old ressources - will train an AlexNet model now!")
     train_alexnet()
+    print("Finished training AlexNet - will train ResNet50 now!")
+    train_resnet50()
+    print("Finished training ResNet50!")
     print("Finished running the project!")
 
 if __name__ == "__main__":
