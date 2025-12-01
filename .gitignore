@@ -5,3 +5,5 @@ __pycache__
 project_ml_dl.egg-info
 
 datasets
+
+*.h5
