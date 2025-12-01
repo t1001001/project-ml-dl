@@ -28,7 +28,7 @@ def build_alexnet(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=1):
+def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
     """
     Loads dataset, trains AlexNet, and saves the model.
     """
@@ -57,7 +57,7 @@ def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save
         epochs=epochs,
         validation_data=val_ds
     )
-    model.save(save_path+"alexnet.h5")
+    model.save(save_path+"/alexnet.h5")
     print(f"[INFO] Model saved to {save_path}")
     return model, history
 
