@@ -3,10 +3,10 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 
-def build_alexnet(input_shape=(224, 224, 3), num_classes=10):
+def build_alexnet(input_shape=(227, 227, 3), num_classes=10):
     """Builds and returns the AlexNet model."""
     model = Sequential([
-        Conv2D(96, (11, 11), strides=4, activation='relu', input_shape=input_shape),
+        Conv2D(96, (11, 11), strides=4, activation='relu', input_shape=(227, 227, 3)),
         MaxPooling2D((3, 3), strides=2),
         Conv2D(256, (5, 5), padding='same', activation='relu'),
         MaxPooling2D((3, 3), strides=2),
@@ -28,7 +28,7 @@ def build_alexnet(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
+def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
     """
     Loads dataset, trains AlexNet, and saves the model.
     """

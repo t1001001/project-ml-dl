@@ -1,18 +1,19 @@
 import utils.config as conf
 import tensorflow as tf
 from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.layers import Dense, Flatten, Dropout
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 
 def build_mobilenetv2(input_shape=(224, 224, 3), num_classes=10):
     "Loads a pre-trained MobileNetV2 without the top classification layer."
     base_model = MobileNetV2(weights="imagenet", include_top=False, input_shape=input_shape)
     base_model.trainable = False
-    x = Flatten()(base_model.output)
-    x = Dense(512, activation='relu')(x)
+    x = GlobalAveragePooling2D()(base_model.output)
+    x = Dense(128, activation="relu")(x) 
     x = Dropout(0.5)(x)
-    x = Dense(num_classes, activation='softmax')(x)
-    model = Model(inputs=base_model.input, outputs=x)
+    output_layer = Dense(num_classes, activation='softmax')(x)
+    model = Model(inputs=base_model.input, outputs=output_layer)
     model.compile(
     optimizer='adam',
     loss='sparse_categorical_crossentropy',
@@ -20,7 +21,7 @@ def build_mobilenetv2(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
+def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=1):
     """
     Loads dataset, trains MobileNetV2, and saves the model.
     """
@@ -36,8 +37,8 @@ def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, 
     )
     num_classes = len(train_ds.class_names)
     print("Detected classes:", train_ds.class_names)
-    train_ds = train_ds.map(lambda x, y: (x / 255.0, y))
-    val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
+    train_ds = train_ds.map(lambda x, y: (preprocess_input(x), y))
+    val_ds = val_ds.map(lambda x, y: (preprocess_input(x), y))
     train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     model = build_mobilenetv2(
