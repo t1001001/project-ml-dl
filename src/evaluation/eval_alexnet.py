@@ -9,7 +9,7 @@ import utils.config as conf
 import os
 import numpy as np
 
-def evaluate_alexnet(image_size=(227, 227), batch_size=64):
+def _evaluate_alexnet(image_size=(227, 227), batch_size=64):
     """
     Evaluates the AlexNet model.
     """
@@ -44,4 +44,4 @@ def evaluate_alexnet(image_size=(227, 227), batch_size=64):
     return predicted_classes, true_labels, class_names
 
 if __name__ == "__main__":
-    evaluate_alexnet()
+    _evaluate_alexnet()

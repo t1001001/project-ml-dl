@@ -1,16 +1,16 @@
 import utils.config as conf
 import tensorflow as tf
-from tensorflow.keras.applications import ResNet50
-from tensorflow.keras.applications.resnet50 import preprocess_input
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.layers import Dense, Dropout, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 
-def build_resnet50(input_shape=(224, 224, 3), num_classes=10):
-    "Loads a pre-trained ResNet50 without the top classification layer."
-    base_model = ResNet50(weights="imagenet", include_top=False, input_shape=input_shape)
+def _build_mobilenetv2(input_shape=(224, 224, 3), num_classes=10):
+    "Loads a pre-trained MobileNetV2 without the top classification layer."
+    base_model = MobileNetV2(weights="imagenet", include_top=False, input_shape=input_shape)
     base_model.trainable = False
     x = GlobalAveragePooling2D()(base_model.output)
-    x = Dense(512, activation='relu')(x)
+    x = Dense(128, activation="relu")(x) 
     x = Dropout(0.5)(x)
     output_layer = Dense(num_classes, activation='softmax')(x)
     model = Model(inputs=base_model.input, outputs=output_layer)
@@ -21,9 +21,9 @@ def build_resnet50(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_resnet50(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
+def _train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
     """
-    Loads dataset, trains ResNet50, and saves the model.
+    Loads dataset, trains MobileNetV2, and saves the model.
     """
     train_ds = tf.keras.preprocessing.image_dataset_from_directory(
         train_dir,
@@ -41,7 +41,7 @@ def train_resnet50(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, sav
     val_ds = val_ds.map(lambda x, y: (preprocess_input(x), y))
     train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
-    model = build_resnet50(
+    model = _build_mobilenetv2(
         input_shape=(image_size[0], image_size[1], 3),
         num_classes=num_classes
     )
@@ -50,9 +50,9 @@ def train_resnet50(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, sav
         epochs=epochs,
         validation_data=val_ds
     )
-    model.save(save_path+"/resnet50.h5")
+    model.save(save_path+"/mobilenetv2.h5")
     print(f"[INFO] Model saved to {save_path}")
     return model, history
 
 if __name__ == "__main__":
-    train_resnet50()
+    _train_mobilenetv2()

@@ -7,7 +7,7 @@ setup(
     package_dir={"": "src"},
     entry_points={
         "console_scripts": [
-            "dataset=main:main"
+            "project=main:main"
         ]
     }
 )

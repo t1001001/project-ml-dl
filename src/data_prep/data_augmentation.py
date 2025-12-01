@@ -173,6 +173,7 @@ def apply_color_jitter(image_path, save_dir):
 
 def process_images(folder, apply_augmentation=True):
     """Convert images to grayscale and optionally apply augmentation."""
+    print("--- Starting data augmentation ---")
     backup_folder = BACKUP_FOLDERS.get(folder)
     if backup_folder is None:
         backup_folder = os.path.join("datasets", "backup", os.path.basename(folder))
@@ -196,6 +197,7 @@ def process_images(folder, apply_augmentation=True):
             apply_clahe(grayscale_save_path, folder)
             apply_color_jitter(grayscale_save_path, folder)
     log_dataset_size(folder, "After Augmentation")
+    print("--- Finished data augmentation ---")
 
 if __name__ == "__main__":
     for folder in TRAIN_FOLDERS:

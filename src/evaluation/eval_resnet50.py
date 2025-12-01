@@ -10,7 +10,7 @@ import utils.config as conf
 import os
 import numpy as np
 
-def evaluate_resnet50(image_size=(224, 224), batch_size=64):
+def _evaluate_resnet50(image_size=(224, 224), batch_size=64):
     """
     Evaluates the ResNet50 model.
     """
@@ -45,4 +45,4 @@ def evaluate_resnet50(image_size=(224, 224), batch_size=64):
     return predicted_classes, true_labels, class_names
 
 if __name__ == "__main__":
-    evaluate_resnet50()
+    _evaluate_resnet50()

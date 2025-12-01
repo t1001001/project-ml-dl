@@ -3,6 +3,8 @@ from utils.cleanup import cleanup
 from data_prep.get_dataset import get_dataset
 from data_prep.split_dataset import split_dataset
 from data_prep.data_augmentation import process_images
+from models.build import build
+from evaluation.evaluation import evaluate
 
 TRAIN_FOLDERS = [
     conf.DATASET_TRAIN_BUTTERFLY_PATH,
@@ -18,13 +20,13 @@ TRAIN_FOLDERS = [
 ]
 
 def main():
-    print("Getting the dataset!")
     get_dataset()
     split_dataset()
     for folder in TRAIN_FOLDERS:
         process_images(folder, apply_augmentation=True)
     cleanup()
-    print("Finished getting the dataset!")
+    build()
+    evaluate()
 
 if __name__ == "__main__":
     main()

@@ -25,11 +25,16 @@ Project-ML-DL/
 │   │   │   ├-- split_dataset.py
 │   │   ├── evaluation/             # Model evaluation
 │   │   │   ├-- __init__.py
+│   │   │   ├-- eval_alexnet.py
+│   │   │   ├-- eval_mobilenetv2.py
+│   │   │   ├-- eval_resnet50.py
+│   │   │   ├-- evaluation.py
 │   │   ├── models/                 # Models
 │   │   │   ├-- __init__.py
-│   │   │   ├-- alexnet.py
-│   │   │   ├-- mobilenetv2.py
-│   │   │   ├-- resnet50.py
+│   │   │   ├-- build_alexnet.py
+│   │   │   ├-- build_mobilenetv2.py
+│   │   │   ├-- build_resnet50.py
+│   │   │   ├-- build.py
 │   │   ├── utils/                  # Utility methods
 │   │   │   ├-- __init__.py
 │   │   │   ├-- cleanup.py
@@ -92,38 +97,7 @@ uv pip install -e .
 ```
 
 ## Usage
-
-### 1. Download the dataset
 ```bash
-dataset
-```
-
-### 3. Building and training the models
-```bash
-# Builds and train an AlexNet model and saves it at src/models/saved_models/alexnet.h5
-cd src/models
-python alexnet.py
-
-# Builds and train a MobileNetV2 model and saves it at src/models/saved_models/mobilenetv2.h5
-cd src/models
-python mobilenetv2.py
-
-# Builds and train a ResNet50 model and saves it at src/models/saved_models/resnet50.h5
-cd src/models
-python resnet50.py
-```
-
-### 3. Evaluate the models
-```bash
-# Test the AlexNet model on the test data
-cd src/evaluation
-python alexnet_eval.py
-
-# Test the MobileNetV2 model on the test data
-cd src/evaluation
-python mobilenetv2_eval.py
-
-# Test the ResNet50 model on the test data
-cd src/evaluation
-python resnet50_eval.py
+# This command runs the entire pipeline from data gathering, augmentation, model building and evaluation
+project
 ```

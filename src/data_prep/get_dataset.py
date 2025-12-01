@@ -8,6 +8,7 @@ def get_dataset():
     """"
     Downloads the dataset from Kaggle.
     """
+    print("--- Downloading the dataset ---")
     return kagglehub.dataset_download("alessiocorrado99/animals10")
 
 if __name__ == "__main__":

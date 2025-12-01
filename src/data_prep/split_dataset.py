@@ -24,34 +24,27 @@ def split_dataset():
     """
     Splits the dataset into "train" and "test" sets.
     """
-    print("Splitting the dataset...")
-
+    print("--- Starting dataset split ---")
     categories = [f.name for f in RAW_DIR.iterdir() if f.is_dir()]
     print(f"Detected categories: {categories}")
-
     for category in categories:
         input_folder = RAW_DIR / category
         english_name = translate.get(category, category)
-
         train_folder = OUTPUT_DIR / "train" / english_name
         test_folder = OUTPUT_DIR / "test" / english_name
         train_folder.mkdir(parents=True, exist_ok=True)
         test_folder.mkdir(parents=True, exist_ok=True)
-
         image_files = list(input_folder.glob("*"))
         print(f"{category}: found {len(image_files)} images")
         random.shuffle(image_files)
-
         split_idx = int(len(image_files) * TRAIN_RATIO)
         train_files = image_files[:split_idx]
         test_files = image_files[split_idx:]
-
         for img_path in train_files:
             shutil.move(str(img_path), train_folder / img_path.name)
         for img_path in test_files:
             shutil.move(str(img_path), test_folder / img_path.name)
-
-    print("Completed dataset split!")
+    print("--- Finished dataset split ---")
 
 if __name__ == "__main__":
     split_dataset()

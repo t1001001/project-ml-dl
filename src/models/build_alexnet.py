@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 
-def build_alexnet(input_shape=(227, 227, 3), num_classes=10):
+def _build_alexnet(input_shape=(227, 227, 3), num_classes=10):
     """Builds and returns the AlexNet model."""
     model = Sequential([
         Conv2D(96, (11, 11), strides=4, activation='relu', input_shape=(227, 227, 3)),
@@ -28,7 +28,7 @@ def build_alexnet(input_shape=(227, 227, 3), num_classes=10):
     )
     return model
 
-def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
+def _train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
     """
     Loads dataset, trains AlexNet, and saves the model.
     """
@@ -48,7 +48,7 @@ def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save
     val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
     train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
-    model = build_alexnet(
+    model = _build_alexnet(
         input_shape=(image_size[0], image_size[1], 3),
         num_classes=num_classes
     )
@@ -62,4 +62,4 @@ def train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save
     return model, history
 
 if __name__ == "__main__":
-    train_alexnet()
+    _train_alexnet()
