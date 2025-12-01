@@ -21,7 +21,7 @@ def build_mobilenetv2(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=1):
+def train_mobilenetv2(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
     """
     Loads dataset, trains MobileNetV2, and saves the model.
     """
