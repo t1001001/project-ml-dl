@@ -3,22 +3,17 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 
-def _build_alexnet(input_shape=(227, 227, 3), num_classes=10):
-    """Builds and returns the AlexNet model."""
+def _build_custom(input_shape=(224, 224, 3), num_classes=10):
+    """Builds and returns the custom model."""
     model = Sequential([
-        Conv2D(96, (11, 11), strides=4, activation='relu', input_shape=(227, 227, 3)),
-        MaxPooling2D((3, 3), strides=2),
-        Conv2D(256, (5, 5), padding='same', activation='relu'),
-        MaxPooling2D((3, 3), strides=2),
-        Conv2D(384, (3, 3), padding='same', activation='relu'),
-        Conv2D(384, (3, 3), padding='same', activation='relu'),
-        Conv2D(256, (3, 3), padding='same', activation='relu'),
-        MaxPooling2D((3, 3), strides=2),
+        Conv2D(16, 3, activation='relu'),
+        MaxPooling2D(),
+        Conv2D(32, 3, activation='relu'),
+        MaxPooling2D(),
+        Conv2D(64, 3, activation='relu'),
+        MaxPooling2D(),
         Flatten(),
-        Dense(4096, activation='relu'),
-        Dropout(0.5),
-        Dense(4096, activation='relu'),
-        Dropout(0.5),
+        Dense(64, activation='relu'),
         Dense(num_classes, activation='softmax')
     ])
     model.compile(
@@ -28,9 +23,9 @@ def _build_alexnet(input_shape=(227, 227, 3), num_classes=10):
     )
     return model
 
-def _train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
+def _train_custom(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
     """
-    Loads dataset, trains AlexNet, and saves the model.
+    Loads dataset, trains custom, and saves the model.
     """
     train_ds = tf.keras.preprocessing.image_dataset_from_directory(
         train_dir,
@@ -48,7 +43,7 @@ def _train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, sav
     val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
     train_ds = train_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
     val_ds = val_ds.prefetch(buffer_size=tf.data.AUTOTUNE)
-    model = _build_alexnet(
+    model = _build_custom(
         input_shape=(image_size[0], image_size[1], 3),
         num_classes=num_classes
     )
@@ -57,9 +52,9 @@ def _train_alexnet(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, sav
         epochs=epochs,
         validation_data=val_ds
     )
-    model.save(save_path+"/alexnet.h5")
+    model.save(save_path+"/custom.h5")
     print(f"[INFO] Model saved to {save_path}")
     return model, history
 
 if __name__ == "__main__":
-    _train_alexnet()
+    _train_custom()

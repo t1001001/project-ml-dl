@@ -9,11 +9,11 @@ import utils.config as conf
 import os
 import numpy as np
 
-def _evaluate_alexnet(image_size=(227, 227), batch_size=64):
+def _evaluate_custom(image_size=(224, 224), batch_size=64):
     """
-    Evaluates the AlexNet model.
+    Evaluates the custom model.
     """
-    model = load_model(conf.SAVED_MODELS_PATH+"/alexnet.h5")
+    model = load_model(conf.SAVED_MODELS_PATH+"/custom.h5")
     test_dir = conf.DATASET_TEST
     test_ds = tf.keras.preprocessing.image_dataset_from_directory(
         test_dir,
@@ -35,13 +35,13 @@ def _evaluate_alexnet(image_size=(227, 227), batch_size=64):
                 yticklabels=class_names)
     plt.xlabel("Predicted")
     plt.ylabel("True")
-    plt.title("Confusion Matrix - AlexNet")
+    plt.title("Confusion Matrix - Custom")
     plt.tight_layout()
-    plt.savefig(str(conf.ROOT)+"/src/evaluation/alexnet_evaluation.png")
+    plt.savefig(str(conf.ROOT)+"/src/evaluation/custom_evaluation.png")
     plt.show()
     print("\nClassification Report:")
     print(classification_report(true_labels, predicted_classes, target_names=class_names))
     return predicted_classes, true_labels, class_names
 
 if __name__ == "__main__":
-    _evaluate_alexnet()
+    _evaluate_custom()
