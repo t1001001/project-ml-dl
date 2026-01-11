@@ -9,3 +9,8 @@ datasets
 *.h5
 
 *.png
+
+*.svg
+
+*.txt
+!requirements.txt
