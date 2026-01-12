@@ -2,7 +2,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.applications.resnet50 import preprocess_input
 import tensorflow as tf
 import numpy as np
-from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
 import utils.config as conf
 import time
 
@@ -32,6 +32,10 @@ def _evaluate_resnet50(image_size=(224, 224), batch_size=64):
     cm = confusion_matrix(true_labels, predicted_classes)
     acc = accuracy_score(true_labels, predicted_classes)
     f1_per_class = f1_score(true_labels, predicted_classes, average=None)
+    precision_per_class = precision_score(true_labels, predicted_classes, average=None)
+    recall_per_class = recall_score(true_labels, predicted_classes, average=None)
+    f1_macro = f1_score(true_labels, predicted_classes, average='macro')
+    f1_weighted = f1_score(true_labels, predicted_classes, average='weighted')
     
     print(f"Accuracy: {acc:.2%}")
     print(f"Timing: {inference_time:.2f}s total, {avg_inference_time_ms:.2f}ms per image")
@@ -40,6 +44,10 @@ def _evaluate_resnet50(image_size=(224, 224), batch_size=64):
         'name': 'ResNet50',
         'accuracy': acc,
         'f1_scores': f1_per_class.tolist(),
+        'precision_scores': precision_per_class.tolist(),
+        'recall_scores': recall_per_class.tolist(),
+        'f1_macro': f1_macro,
+        'f1_weighted': f1_weighted,
         'confusion_matrix': cm,
         'inference_time_ms': avg_inference_time_ms,
         'class_names': class_names

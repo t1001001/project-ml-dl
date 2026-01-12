@@ -8,6 +8,10 @@ def visualize_all(results):
     
     accuracy = {r['name']: r['accuracy'] for r in results}
     f1_scores = {r['name']: r['f1_scores'] for r in results}
+    precision_scores = {r['name']: r['precision_scores'] for r in results}
+    recall_scores = {r['name']: r['recall_scores'] for r in results}
+    f1_macro = {r['name']: r['f1_macro'] for r in results}
+    f1_weighted = {r['name']: r['f1_weighted'] for r in results}
     inference_time_ms = {r['name']: r['inference_time_ms'] for r in results}
     confusion_matrices = {r['name']: r['confusion_matrix'] for r in results}
     
@@ -108,6 +112,118 @@ def visualize_all(results):
     plt.savefig('src/evaluation/model_comparison_inference_time.png', dpi=300, bbox_inches='tight')
     plt.savefig('src/evaluation/model_comparison_inference_time.svg', bbox_inches='tight')
     print("Saved: model_comparison_inference_time.png/svg")
+    
+    # Precision per Class
+    fig4, ax4 = plt.subplots(figsize=(12, 6), facecolor='white')
+    ax4.set_facecolor('white')
+    x = np.arange(len(classes))
+    width = 0.25
+    
+    for i, model in enumerate(models):
+        offset = (i - 1) * width
+        ax4.bar(x + offset, precision_scores[model], width * 0.85, 
+                color=sci_colors[i], edgecolor='black', linewidth=0.8,
+                label=model, hatch=hatches[i], alpha=0.85, zorder=2)
+    
+    ax4.axhline(y=0.9, color='#333333', linestyle='--', linewidth=1.5, zorder=3)
+    ax4.annotate('Threshold = 0.9', xy=(len(classes) - 0.3, 0.9), xytext=(len(classes) - 0.3, 0.82),
+                 fontsize=10, ha='right', va='top', color='#333333', fontweight='bold',
+                 arrowprops=dict(arrowstyle='->', color='#333333', lw=1))
+    
+    ax4.set_ylabel('Precision', fontsize=12, fontweight='bold')
+    ax4.set_xlabel('Animal Class', fontsize=12, fontweight='bold')
+    ax4.set_title('Per-Class Precision Comparison Across Models', fontsize=14, fontweight='bold', pad=15)
+    ax4.set_xticks(x)
+    ax4.set_xticklabels([c.capitalize() for c in classes], rotation=45, ha='right', fontsize=10)
+    ax4.set_ylim(0, 1.05)
+    ax4.set_xlim(-0.5, len(classes) - 0.5)
+    ax4.spines['top'].set_visible(False)
+    ax4.spines['right'].set_visible(False)
+    ax4.yaxis.grid(True, linestyle='-', alpha=0.3, color='gray', zorder=0)
+    ax4.set_axisbelow(True)
+    ax4.legend(loc='lower right', frameon=True, framealpha=1, edgecolor='black', fontsize=10, fancybox=False)
+    
+    plt.tight_layout()
+    plt.savefig('src/evaluation/model_comparison_precision_classes.png', dpi=300, bbox_inches='tight')
+    plt.savefig('src/evaluation/model_comparison_precision_classes.svg', bbox_inches='tight')
+    print("Saved: model_comparison_precision_classes.png/svg")
+    
+    # Recall per Class
+    fig5, ax5 = plt.subplots(figsize=(12, 6), facecolor='white')
+    ax5.set_facecolor('white')
+    x = np.arange(len(classes))
+    width = 0.25
+    
+    for i, model in enumerate(models):
+        offset = (i - 1) * width
+        ax5.bar(x + offset, recall_scores[model], width * 0.85, 
+                color=sci_colors[i], edgecolor='black', linewidth=0.8,
+                label=model, hatch=hatches[i], alpha=0.85, zorder=2)
+    
+    ax5.axhline(y=0.9, color='#333333', linestyle='--', linewidth=1.5, zorder=3)
+    ax5.annotate('Threshold = 0.9', xy=(len(classes) - 0.3, 0.9), xytext=(len(classes) - 0.3, 0.82),
+                 fontsize=10, ha='right', va='top', color='#333333', fontweight='bold',
+                 arrowprops=dict(arrowstyle='->', color='#333333', lw=1))
+    
+    ax5.set_ylabel('Recall', fontsize=12, fontweight='bold')
+    ax5.set_xlabel('Animal Class', fontsize=12, fontweight='bold')
+    ax5.set_title('Per-Class Recall Comparison Across Models', fontsize=14, fontweight='bold', pad=15)
+    ax5.set_xticks(x)
+    ax5.set_xticklabels([c.capitalize() for c in classes], rotation=45, ha='right', fontsize=10)
+    ax5.set_ylim(0, 1.05)
+    ax5.set_xlim(-0.5, len(classes) - 0.5)
+    ax5.spines['top'].set_visible(False)
+    ax5.spines['right'].set_visible(False)
+    ax5.yaxis.grid(True, linestyle='-', alpha=0.3, color='gray', zorder=0)
+    ax5.set_axisbelow(True)
+    ax5.legend(loc='lower right', frameon=True, framealpha=1, edgecolor='black', fontsize=10, fancybox=False)
+    
+    plt.tight_layout()
+    plt.savefig('src/evaluation/model_comparison_recall_classes.png', dpi=300, bbox_inches='tight')
+    plt.savefig('src/evaluation/model_comparison_recall_classes.svg', bbox_inches='tight')
+    print("Saved: model_comparison_recall_classes.png/svg")
+    
+    # Macro and Weighted F1 Comparison
+    fig6, ax6 = plt.subplots(figsize=(10, 6), facecolor='white')
+    ax6.set_facecolor('white')
+    x = np.arange(len(models))
+    width = 0.35
+    
+    for i, model in enumerate(models):
+        ax6.bar(x[i] - width/2, f1_macro[model], width * 0.85, 
+                color=sci_colors[i], edgecolor='black', linewidth=1, 
+                hatch=hatches[i], alpha=0.85, label='Macro F1' if i == 0 else '')
+        ax6.bar(x[i] + width/2, f1_weighted[model], width * 0.85, 
+                color=sci_colors[i], edgecolor='black', linewidth=1,
+                hatch='', alpha=0.5, label='Weighted F1' if i == 0 else '')
+        ax6.text(x[i] - width/2, f1_macro[model] + 0.015, f'{f1_macro[model]:.2f}', 
+                 ha='center', va='bottom', fontweight='bold', fontsize=10)
+        ax6.text(x[i] + width/2, f1_weighted[model] + 0.015, f'{f1_weighted[model]:.2f}', 
+                 ha='center', va='bottom', fontweight='bold', fontsize=10)
+    
+    ax6.set_ylabel('F1-Score', fontsize=12, fontweight='bold')
+    ax6.set_xlabel('Model', fontsize=12, fontweight='bold')
+    ax6.set_title('Model Comparison: Macro vs Weighted F1-Score', fontsize=14, fontweight='bold', pad=15)
+    ax6.set_xticks(x)
+    ax6.set_xticklabels(models, fontsize=11)
+    ax6.set_ylim(0, 1.1)
+    ax6.set_xlim(-0.5, len(models) - 0.5)
+    ax6.spines['top'].set_visible(False)
+    ax6.spines['right'].set_visible(False)
+    ax6.yaxis.grid(True, linestyle='-', alpha=0.3, color='gray', zorder=0)
+    ax6.set_axisbelow(True)
+    
+    # Custom legend for Macro vs Weighted
+    from matplotlib.patches import Patch
+    legend_elements = [Patch(facecolor='gray', edgecolor='black', hatch='///', alpha=0.85, label='Macro F1'),
+                       Patch(facecolor='gray', edgecolor='black', alpha=0.5, label='Weighted F1')]
+    ax6.legend(handles=legend_elements, loc='lower right', frameon=True, framealpha=1, 
+               edgecolor='black', fontsize=10, fancybox=False)
+    
+    plt.tight_layout()
+    plt.savefig('src/evaluation/model_comparison_f1_macro_weighted.png', dpi=300, bbox_inches='tight')
+    plt.savefig('src/evaluation/model_comparison_f1_macro_weighted.svg', bbox_inches='tight')
+    print("Saved: model_comparison_f1_macro_weighted.png/svg")
     
     # Confusion Matrices
     model_filenames = {'Custom CNN': 'custom', 'MobileNetV2': 'mobilenetv2', 'ResNet50': 'resnet50'}
