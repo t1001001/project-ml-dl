@@ -23,7 +23,7 @@ def _build_custom(input_shape=(224, 224, 3), num_classes=10):
     )
     return model
 
-def _train_custom(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(227, 227), batch_size=64, epochs=10):
+def _train_custom(train_dir=conf.DATASET_TRAIN, test_dir=conf.DATASET_TEST, save_path=conf.SAVED_MODELS_PATH, image_size=(224, 224), batch_size=64, epochs=10):
     """
     Loads dataset, trains custom, and saves the model.
     """
